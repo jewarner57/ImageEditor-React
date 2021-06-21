@@ -1,14 +1,20 @@
-import React, { useState } from 'react'
 import ImageUpload from '../ImageUpload'
 import Canvas from '../Canvas'
 
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import rootReducer from '../../reducers'
+
+const store = createStore(rootReducer)
+
 function App() {
-  const [image, setImage] = useState('')
 
   return (
     <div>
-      <ImageUpload setImage={setImage}></ImageUpload>
-      <Canvas uploadedImage={image}></Canvas>
+      <Provider store={store}>
+        <ImageUpload></ImageUpload>
+        <Canvas></Canvas>
+      </Provider>
     </div>
   );
 }
