@@ -1,11 +1,17 @@
-import './style.css';
+import React, { useState } from 'react'
+import ImageUpload from '../ImageUpload'
+import Canvas from '../Canvas'
 
 function App() {
+  const [image, setImage] = useState('')
+
   return (
-    <div className="App">
-      <h1>Image Editor</h1>
+    <div>
+      <ImageUpload setImage={setImage}></ImageUpload>
+      <Canvas uploadedImage={image}></Canvas>
     </div>
   );
 }
 
-export default App;
+export default App
+
