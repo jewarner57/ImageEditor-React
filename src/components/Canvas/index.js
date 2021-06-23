@@ -8,7 +8,7 @@ const Canvas = (props) => {
 
   const draw = useCallback((ctx) => {
     // Loop through all objects on canvas
-    objectsOnCanvas.forEach((obj) => {
+    objectsOnCanvas.sort((a, b) => (a.zIndex - b.zIndex)).forEach((obj) => {
       // If the object is an image then display it
       if (obj.type === 'image') {
 
@@ -28,6 +28,8 @@ const Canvas = (props) => {
   useEffect(() => {
 
     const canvas = canvasRef.current
+    canvas.width = 900
+    canvas.height = 900
     const context = canvas.getContext('2d')
     draw(context)
 

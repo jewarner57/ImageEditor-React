@@ -8,7 +8,7 @@ function ImageUpload(props) {
     dispatch(addToCanvas(
       {
         type: 'image',
-        url: URL.createObjectURL(event.target.files[0])
+        url: URL.createObjectURL(event.target.files[0]),
       }
     ))
   }
