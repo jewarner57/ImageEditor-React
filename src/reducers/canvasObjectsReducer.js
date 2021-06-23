@@ -1,4 +1,4 @@
-import { ADD_OBJECT, REMOVE_OBJECT, CLEAR_OBJECTS } from "../actions";
+import { ADD_OBJECT, REMOVE_OBJECT, CLEAR_OBJECTS, UPDATE_OBJECT } from "../actions";
 
 const canvasObjectsReducer = (state = [], action) => {
 
@@ -11,6 +11,17 @@ const canvasObjectsReducer = (state = [], action) => {
       obj.zIndex = state.length
 
       return [obj, ...state]
+
+    case UPDATE_OBJECT:
+
+      const objForUpdate = action.payload.obj
+
+      return state.map((obj) => {
+        if (obj.id === objForUpdate.id) {
+          return objForUpdate
+        }
+        return obj
+      })
 
     case REMOVE_OBJECT:
 

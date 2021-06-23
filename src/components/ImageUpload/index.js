@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { addToCanvas } from '../../actions';
+import { v4 as uuidv4 } from 'uuid';
 
 function ImageUpload(props) {
   const dispatch = useDispatch()
@@ -13,11 +14,13 @@ function ImageUpload(props) {
       dispatch(addToCanvas(
         {
           type: 'image',
+          id: uuidv4(),
           url: img.src,
           xPos: 0,
           yPos: 0,
           width: img.width,
-          height: img.height
+          height: img.height,
+          isBeingDragged: false
         }
       ))
     }

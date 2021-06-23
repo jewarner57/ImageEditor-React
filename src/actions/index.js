@@ -1,6 +1,7 @@
 export const ADD_OBJECT = 'ADD_OBJECT'
 export const REMOVE_OBJECT = 'REMOVE_OBJECT'
 export const CLEAR_OBJECTS = 'CLEAR_OBJECTS'
+export const UPDATE_OBJECT = 'UPDATE_OBJECT'
 
 export const addToCanvas = (obj) => {
   return {
@@ -19,6 +20,13 @@ export const removeFromCanvas = (obj) => {
 export const clearCanvas = (obj) => {
   return {
     type: CLEAR_OBJECTS,
+    payload: { obj }
+  }
+}
+
+export const updateObject = (obj) => {
+  return {
+    type: UPDATE_OBJECT,
     payload: { obj }
   }
 }

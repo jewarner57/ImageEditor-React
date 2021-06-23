@@ -1,12 +1,15 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { updateObject } from '../../actions';
 
 const Canvas = (props) => {
+  const canvasObjects = useSelector(state => state.canvasObjects)
   const [canvasWidth, setCanvasWidth] = useState(500)
   const [canvasHeight, setCanvasHeight] = useState(500)
   // Get a list of canvas objects
   const objectsOnCanvas = useSelector(state => state.canvasObjects)
   const canvasRef = useRef(null)
+  const dispatch = useDispatch()
 
   const draw = useCallback((ctx) => {
     // Loop through all objects on canvas
@@ -27,16 +30,68 @@ const Canvas = (props) => {
     })
   }, [objectsOnCanvas])
 
-  const handleCanvasClick = (e) => {
+  const handleMouseDown = (e) => {
+    // Get the mouse x and y
     let bound = e.target.getBoundingClientRect();
-
     let x = e.clientX - bound.left - e.target.clientLeft;
     let y = e.clientY - bound.top - e.target.clientTop;
 
-    console.log(x, y)
+    const selectedElem = getClickedImage(x, y)
+
+    if (selectedElem !== { zIndex: -1 }) {
+      selectedElem.isBeingDragged = true
+      dispatch(updateObject(selectedElem))
+    }
+
   }
 
-  // const
+  const handleMouseUp = (e) => {
+    canvasObjects.forEach((obj) => {
+      if (obj.isBeingDragged === true) {
+        const updatedObj = obj
+        updatedObj.isBeingDragged = false
+
+        dispatch(updateObject(updatedObj))
+      }
+    })
+  }
+
+  const handleMouseMove = (e) => {
+    // Get the mouse x and y
+    let bound = e.target.getBoundingClientRect();
+    let x = e.clientX - bound.left - e.target.clientLeft;
+    let y = e.clientY - bound.top - e.target.clientTop;
+
+    canvasObjects.forEach((obj) => {
+      if (obj.isBeingDragged === true) {
+        const updatedObj = obj
+        updatedObj.xPos = x
+        updatedObj.yPos = y
+        dispatch(updateObject(updateObject))
+      }
+    })
+  }
+
+  const getClickedImage = (x, y) => {
+    // Get the top level element that was clicked
+    let clickedObj = { zIndex: -1 };
+    canvasObjects.forEach((obj) => {
+      if (touchesObj(x, y, obj) && obj.zIndex > clickedObj.zIndex) {
+        clickedObj = obj
+      }
+    })
+
+    return clickedObj
+  }
+
+  const touchesObj = (x, y, obj) => {
+    // If x and y are touching the object
+    if ((x > obj.xPos && x < obj.xPos + obj.width)
+      && (y > obj.yPos && y < obj.yPos + obj.height)) {
+      return true
+    }
+    return false
+  }
 
   useEffect(() => {
 
@@ -48,7 +103,12 @@ const Canvas = (props) => {
 
   }, [draw, canvasWidth, canvasHeight])
 
-  return <canvas ref={canvasRef} onMouseDown={(e) => { handleCanvasClick(e) }} />
+  return <canvas
+    ref={canvasRef}
+    onMouseDown={(e) => { handleMouseDown(e) }}
+    onMouseUp={(e) => { handleMouseUp(e) }}
+    onMouseMove={(e) => { handleMouseMove(e) }}
+  />
 }
 
 export default Canvas
