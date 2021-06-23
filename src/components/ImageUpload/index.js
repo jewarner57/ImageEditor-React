@@ -5,12 +5,24 @@ function ImageUpload(props) {
   const dispatch = useDispatch()
 
   const handleChange = (event) => {
-    dispatch(addToCanvas(
-      {
-        type: 'image',
-        url: URL.createObjectURL(event.target.files[0]),
-      }
-    ))
+
+    const img = new Image()
+    img.src = URL.createObjectURL(event.target.files[0])
+
+    img.onload = () => {
+      dispatch(addToCanvas(
+        {
+          type: 'image',
+          url: img.src,
+          xPos: 0,
+          yPos: 0,
+          width: img.width,
+          height: img.height
+        }
+      ))
+    }
+
+
   }
 
   return (

@@ -1,7 +1,9 @@
-import React, { useRef, useEffect, useCallback } from 'react'
+import React, { useRef, useEffect, useCallback, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 const Canvas = (props) => {
+  const [canvasWidth, setCanvasWidth] = useState(500)
+  const [canvasHeight, setCanvasHeight] = useState(500)
   // Get a list of canvas objects
   const objectsOnCanvas = useSelector(state => state.canvasObjects)
   const canvasRef = useRef(null)
@@ -16,26 +18,37 @@ const Canvas = (props) => {
         img.src = obj.url
 
         img.onload = () => {
-          ctx.drawImage(img, 0, 0, img.width, img.height)
+          ctx.drawImage(img, obj.xPos, obj.yPos, obj.width, obj.height)
         }
         img.onerror = function (err) {
-          console.log('image failed to load');
+          console.log(`image failed to load from ${img.src}`);
         };
       }
     })
   }, [objectsOnCanvas])
 
+  const handleCanvasClick = (e) => {
+    let bound = e.target.getBoundingClientRect();
+
+    let x = e.clientX - bound.left - e.target.clientLeft;
+    let y = e.clientY - bound.top - e.target.clientTop;
+
+    console.log(x, y)
+  }
+
+  // const
+
   useEffect(() => {
 
     const canvas = canvasRef.current
-    canvas.width = 900
-    canvas.height = 900
+    canvas.width = canvasWidth
+    canvas.height = canvasHeight
     const context = canvas.getContext('2d')
     draw(context)
 
-  }, [draw])
+  }, [draw, canvasWidth, canvasHeight])
 
-  return <canvas ref={canvasRef} />
+  return <canvas ref={canvasRef} onMouseDown={(e) => { handleCanvasClick(e) }} />
 }
 
 export default Canvas

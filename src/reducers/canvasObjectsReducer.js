@@ -7,8 +7,9 @@ const canvasObjectsReducer = (state = [], action) => {
     case ADD_OBJECT:
 
       const obj = action.payload.obj
+      // Layer the new object on top
       obj.zIndex = state.length
-      console.log(state)
+
       return [obj, ...state]
 
     case REMOVE_OBJECT:
