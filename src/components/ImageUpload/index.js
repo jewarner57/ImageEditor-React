@@ -20,7 +20,9 @@ function ImageUpload(props) {
           yPos: 0,
           width: img.width,
           height: img.height,
-          isBeingDragged: false
+          isBeingDragged: false,
+          dragStartX: 0,
+          dragStartY: 0
         }
       ))
     }

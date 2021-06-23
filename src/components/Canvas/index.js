@@ -40,12 +40,19 @@ const Canvas = (props) => {
 
     if (selectedElem !== { zIndex: -1 }) {
       selectedElem.isBeingDragged = true
+
+      // Get the distance between the mouse and obj position
+      // This can then be used to determine where to start drag from
+      selectedElem.dragStartX = selectedElem.xPos - x
+      selectedElem.dragStartY = selectedElem.yPos - y
+
       dispatch(updateObject(selectedElem))
     }
 
   }
 
   const handleMouseUp = (e) => {
+    // On mouse up stop drag on all objects
     canvasObjects.forEach((obj) => {
       if (obj.isBeingDragged === true) {
         const updatedObj = obj
@@ -65,8 +72,13 @@ const Canvas = (props) => {
     canvasObjects.forEach((obj) => {
       if (obj.isBeingDragged === true) {
         const updatedObj = obj
-        updatedObj.xPos = x
-        updatedObj.yPos = y
+
+        // Use the drag start to prevent elem from
+        // always being dragged from top left corner
+        updatedObj.xPos = x + updatedObj.dragStartX
+        updatedObj.yPos = y + updatedObj.dragStartY
+
+        // Update the object's position
         dispatch(updateObject(updateObject))
       }
     })
@@ -106,6 +118,7 @@ const Canvas = (props) => {
   return <canvas
     ref={canvasRef}
     onMouseDown={(e) => { handleMouseDown(e) }}
+    onMouseLeave={(e) => { handleMouseUp(e) }}
     onMouseUp={(e) => { handleMouseUp(e) }}
     onMouseMove={(e) => { handleMouseMove(e) }}
   />
