@@ -4,8 +4,8 @@ import { updateObject } from '../../actions';
 
 const Canvas = (props) => {
   const canvasObjects = useSelector(state => state.canvasObjects)
-  const [canvasWidth, setCanvasWidth] = useState(500)
-  const [canvasHeight, setCanvasHeight] = useState(500)
+  const [canvasWidth, setCanvasWidth] = useState(800)
+  const [canvasHeight, setCanvasHeight] = useState(600)
   // Get a list of canvas objects
   const objectsOnCanvas = useSelector(state => state.canvasObjects)
   const canvasRef = useRef(null)
@@ -111,17 +111,22 @@ const Canvas = (props) => {
     canvas.width = canvasWidth
     canvas.height = canvasHeight
     const context = canvas.getContext('2d')
+
     draw(context)
 
   }, [draw, canvasWidth, canvasHeight])
 
-  return <canvas
-    ref={canvasRef}
-    onMouseDown={(e) => { handleMouseDown(e) }}
-    onMouseLeave={(e) => { handleMouseUp(e) }}
-    onMouseUp={(e) => { handleMouseUp(e) }}
-    onMouseMove={(e) => { handleMouseMove(e) }}
-  />
+  return (
+    <div>
+      <canvas
+        ref={canvasRef}
+        onMouseDown={(e) => { handleMouseDown(e) }}
+        onMouseLeave={(e) => { handleMouseUp(e) }}
+        onMouseUp={(e) => { handleMouseUp(e) }}
+        onMouseMove={(e) => { handleMouseMove(e) }}
+      />
+    </div>
+  )
 }
 
 export default Canvas

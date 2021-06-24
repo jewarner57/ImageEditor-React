@@ -1,0 +1,14 @@
+.editorButton {
+  text-align: center;
+  padding: 20px 20px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+}
+
+.editorButton:hover {
+  box-shadow: 1px 1px 6px rgb(129, 129, 129);
+}
+
+.editorButton:active {
+  background-color: rgb(206, 223, 255);
+}

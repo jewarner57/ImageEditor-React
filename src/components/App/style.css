@@ -1,0 +1,9 @@
+.editorContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.App {
+  background-color: rgb(219, 219, 219);
+}

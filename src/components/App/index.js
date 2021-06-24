@@ -5,15 +5,19 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import rootReducer from '../../reducers'
 
+import './style.css'
+
 const store = createStore(rootReducer)
 
 function App() {
 
   return (
-    <div>
+    <div className="App">
       <Provider store={store}>
-        <ImageUpload></ImageUpload>
-        <Canvas></Canvas>
+        <div className="editorContainer">
+          <Canvas></Canvas>
+          <ImageUpload></ImageUpload>
+        </div>
       </Provider>
     </div>
   );
