@@ -33,8 +33,6 @@ const Canvas = (props) => {
       // This can then be used to determine where to start drag from
       selectedElem.dragStartX = selectedElem.xPos - x
       selectedElem.dragStartY = selectedElem.yPos - y
-
-      // dispatch(updateObject(selectedElem))
     }
 
   }
@@ -46,7 +44,8 @@ const Canvas = (props) => {
         const updatedObj = obj
         updatedObj.isBeingDragged = false
 
-        // dispatch(updateObject(updatedObj))
+        // Update object position once drag is finished
+        dispatch(updateObject(updatedObj))
       }
     })
   }
@@ -68,9 +67,6 @@ const Canvas = (props) => {
         // always being dragged from top left corner
         updatedObj.xPos = x + updatedObj.dragStartX
         updatedObj.yPos = y + updatedObj.dragStartY
-
-        // Update the object's position
-        // dispatch(updateObject(updateObject))
       }
     })
   }
@@ -111,6 +107,7 @@ const Canvas = (props) => {
 
       // Loop through all objects on canvas
       objectsOnCanvas.sort((a, b) => (a.zIndex - b.zIndex)).forEach((obj) => {
+
         // If the object is an image
         if (obj.type === 'image') {
 
