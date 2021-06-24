@@ -1,6 +1,6 @@
 import './style.css'
 
-function ImageUpload(props) {
+function EditorButton(props) {
   const { clickAction, icon, tooltip } = props
 
   return (
@@ -12,4 +12,4 @@ function ImageUpload(props) {
   )
 }
 
-export default ImageUpload
+export default EditorButton

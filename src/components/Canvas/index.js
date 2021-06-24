@@ -1,11 +1,14 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateObject } from '../../actions';
+import './style.css'
 
 const Canvas = (props) => {
+
   const canvasObjects = useSelector(state => state.canvasObjects)
   const [canvasWidth, setCanvasWidth] = useState(800)
   const [canvasHeight, setCanvasHeight] = useState(600)
+
   // Get a list of canvas objects
   const objectsOnCanvas = useSelector(state => state.canvasObjects)
   const canvasRef = useRef(null)
@@ -117,7 +120,7 @@ const Canvas = (props) => {
   }, [draw, canvasWidth, canvasHeight])
 
   return (
-    <div>
+    <div className="Canvas">
       <canvas
         ref={canvasRef}
         onMouseDown={(e) => { handleMouseDown(e) }}

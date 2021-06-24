@@ -1,5 +1,7 @@
 import ImageUpload from '../ImageUpload'
+import AddText from '../AddText'
 import Canvas from '../Canvas'
+import VerticalToolbar from '../VerticalToolbar'
 
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
@@ -15,8 +17,13 @@ function App() {
     <div className="App">
       <Provider store={store}>
         <div className="editorContainer">
+          <VerticalToolbar
+            contents={[<AddText />, <ImageUpload />]}
+          />
           <Canvas></Canvas>
-          <ImageUpload></ImageUpload>
+          <VerticalToolbar
+            contents={[<ImageUpload />]}
+          />
         </div>
       </Provider>
     </div>

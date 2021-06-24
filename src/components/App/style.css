@@ -1,9 +1,13 @@
 .editorContainer {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  padding: 20px 0;
 }
 
 .App {
   background-color: rgb(219, 219, 219);
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
 }
