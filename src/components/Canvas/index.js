@@ -18,30 +18,6 @@ const Canvas = (props) => {
   const canvasRef = useRef(null)
   const dispatch = useDispatch()
 
-  const draw = useCallback((ctx) => {
-    // Loop through all objects on canvas
-    objectsOnCanvas.sort((a, b) => (a.zIndex - b.zIndex)).forEach((obj) => {
-      // If the object is an image
-      if (obj.type === 'image') {
-
-        const img = new Image()
-        img.src = obj.url
-
-        img.onload = () => {
-          ctx.drawImage(img, obj.xPos, obj.yPos, obj.width, obj.height)
-        }
-        img.onerror = function (err) {
-          console.log(`image failed to load from ${img.src}`);
-        };
-      }
-      // If the object is text
-      else if (obj.type === 'text') {
-        ctx.font = '48px serif';
-        ctx.fillText(obj.text, obj.xPos, obj.yPos);
-      }
-    })
-  }, [objectsOnCanvas])
-
   const handleMouseDown = (e) => {
     // Get the mouse x and y
     let bound = e.target.getBoundingClientRect();
@@ -58,7 +34,7 @@ const Canvas = (props) => {
       selectedElem.dragStartX = selectedElem.xPos - x
       selectedElem.dragStartY = selectedElem.yPos - y
 
-      dispatch(updateObject(selectedElem))
+      // dispatch(updateObject(selectedElem))
     }
 
   }
@@ -70,7 +46,7 @@ const Canvas = (props) => {
         const updatedObj = obj
         updatedObj.isBeingDragged = false
 
-        dispatch(updateObject(updatedObj))
+        // dispatch(updateObject(updatedObj))
       }
     })
   }
@@ -94,7 +70,7 @@ const Canvas = (props) => {
         updatedObj.yPos = y + updatedObj.dragStartY
 
         // Update the object's position
-        dispatch(updateObject(updateObject))
+        // dispatch(updateObject(updateObject))
       }
     })
   }
@@ -125,11 +101,53 @@ const Canvas = (props) => {
     const canvas = canvasRef.current
     canvas.width = canvasWidth
     canvas.height = canvasHeight
-    const context = canvas.getContext('2d')
+    const ctx = canvas.getContext('2d')
+    let requestId;
+    let images = {}
 
-    draw(context)
+    const draw = () => {
+      // Clear the canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  }, [draw, canvasWidth, canvasHeight])
+      // Loop through all objects on canvas
+      objectsOnCanvas.sort((a, b) => (a.zIndex - b.zIndex)).forEach((obj) => {
+        // If the object is an image
+        if (obj.type === 'image') {
+
+          if (!images[obj.id]) {
+            const img = new Image()
+            img.src = obj.url
+
+            img.onload = () => {
+              images[obj.id] = img
+              ctx.drawImage(img, obj.xPos, obj.yPos, obj.width, obj.height)
+            }
+            img.onerror = function (err) {
+              console.log(`image failed to load from ${img.src}`);
+            };
+          }
+          else {
+            ctx.drawImage(images[obj.id], obj.xPos, obj.yPos, obj.width, obj.height)
+          }
+        }
+        // If the object is text
+        else if (obj.type === 'text') {
+          ctx.textBaseline = 'top';
+          ctx.font = `${obj.fontSize} ${obj.font}`;
+          ctx.fillText(obj.text, obj.xPos, obj.yPos);
+        }
+      })
+
+      requestId = requestAnimationFrame(draw);
+    }
+
+    draw()
+
+    return () => {
+      cancelAnimationFrame(requestId);
+    };
+
+  }, [objectsOnCanvas, canvasWidth, canvasHeight])
 
   return (
     <div className="Canvas">

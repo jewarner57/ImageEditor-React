@@ -1,3 +1,11 @@
+## TODO
+* Finish creating text object for canvas
+* Clicking a canvas object should select it and display actions menu on the right of the canvas
+  * delete, move to front, send to back, etc.
+* Add crop image feature
+* Add clear screen button
+
+
 # Project Name and Logo
 
 * [Introduction / Project Purpose / Why should user care](#IntroductionProjectPurposeWhyshouldusercare)

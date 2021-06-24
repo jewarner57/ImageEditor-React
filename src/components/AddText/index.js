@@ -7,16 +7,22 @@ import { v4 as uuidv4 } from 'uuid';
 function AddText(props) {
   const dispatch = useDispatch()
 
-  const addTextToCanvas = (text) => {
+  const addTextToCanvas = () => {
+    const text = 'Hello World'
+    const font = 'serif'
+    const fontSize = 50
+
     dispatch(addToCanvas(
       {
         type: 'text',
         id: uuidv4(),
-        text: 'HELLO WORLD',
-        xPos: 0,
-        yPos: 0,
-        width: 100,
-        height: 100,
+        text: text,
+        font: font,
+        fontSize: `${fontSize}px`,
+        xPos: 10,
+        yPos: fontSize,
+        width: fontSize * 0.6 * text.length,
+        height: fontSize,
         isBeingDragged: false,
         dragStartX: 0,
         dragStartY: 0

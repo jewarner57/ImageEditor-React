@@ -1,5 +1,6 @@
 import ImageUpload from '../ImageUpload'
 import AddText from '../AddText'
+import ClearCanvas from '../ClearCanvas'
 import Canvas from '../Canvas'
 import VerticalToolbar from '../VerticalToolbar'
 
@@ -12,13 +13,12 @@ import './style.css'
 const store = createStore(rootReducer)
 
 function App() {
-
   return (
     <div className="App">
       <Provider store={store}>
         <div className="editorContainer">
           <VerticalToolbar
-            contents={[<AddText />, <ImageUpload />]}
+            contents={[<AddText />, <ImageUpload />, <ClearCanvas />]}
           />
           <Canvas></Canvas>
           <VerticalToolbar

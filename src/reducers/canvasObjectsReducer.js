@@ -29,7 +29,7 @@ const canvasObjectsReducer = (state = [], action) => {
 
     case CLEAR_OBJECTS:
 
-      return state
+      return []
 
     default:
       return state
