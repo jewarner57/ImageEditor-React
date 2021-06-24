@@ -1,13 +1,17 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateObject } from '../../actions';
+import CanvasDetails from '../CanvasDetails'
 import './style.css'
 
 const Canvas = (props) => {
 
   const canvasObjects = useSelector(state => state.canvasObjects)
+
   const [canvasWidth, setCanvasWidth] = useState(800)
   const [canvasHeight, setCanvasHeight] = useState(600)
+  const [mouseX, setMouseX] = useState(0)
+  const [mouseY, setMouseY] = useState(0)
 
   // Get a list of canvas objects
   const objectsOnCanvas = useSelector(state => state.canvasObjects)
@@ -77,6 +81,9 @@ const Canvas = (props) => {
     let x = e.clientX - bound.left - e.target.clientLeft;
     let y = e.clientY - bound.top - e.target.clientTop;
 
+    setMouseX(x)
+    setMouseY(y)
+
     canvasObjects.forEach((obj) => {
       if (obj.isBeingDragged === true) {
         const updatedObj = obj
@@ -132,6 +139,14 @@ const Canvas = (props) => {
         onMouseLeave={(e) => { handleMouseUp(e) }}
         onMouseUp={(e) => { handleMouseUp(e) }}
         onMouseMove={(e) => { handleMouseMove(e) }}
+      />
+      <CanvasDetails
+        width={canvasWidth}
+        height={canvasHeight}
+        setWidth={setCanvasWidth}
+        setHeight={setCanvasHeight}
+        mouseX={mouseX}
+        mouseY={mouseY}
       />
     </div>
   )
