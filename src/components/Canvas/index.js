@@ -17,7 +17,7 @@ const Canvas = (props) => {
   const draw = useCallback((ctx) => {
     // Loop through all objects on canvas
     objectsOnCanvas.sort((a, b) => (a.zIndex - b.zIndex)).forEach((obj) => {
-      // If the object is an image then display it
+      // If the object is an image
       if (obj.type === 'image') {
 
         const img = new Image()
@@ -29,6 +29,11 @@ const Canvas = (props) => {
         img.onerror = function (err) {
           console.log(`image failed to load from ${img.src}`);
         };
+      }
+      // If the object is text
+      else if (obj.type === 'text') {
+        ctx.font = '48px serif';
+        ctx.fillText(obj.text, obj.xPos, obj.yPos);
       }
     })
   }, [objectsOnCanvas])
