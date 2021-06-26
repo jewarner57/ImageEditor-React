@@ -1,12 +1,13 @@
-import React, { useRef, useEffect, useCallback, useState } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { updateObject } from '../../actions';
+import { updateObject, setSelectedObject } from '../../actions';
 import CanvasDetails from '../CanvasDetails'
 import './style.css'
 
 const Canvas = (props) => {
 
   const canvasObjects = useSelector(state => state.canvasObjects)
+  let selectedObject = useSelector(state => state.selectedObject).id
 
   const [canvasWidth, setCanvasWidth] = useState(800)
   const [canvasHeight, setCanvasHeight] = useState(600)
@@ -18,23 +19,39 @@ const Canvas = (props) => {
   const canvasRef = useRef(null)
   const dispatch = useDispatch()
 
+  const handleClick = (e) => {
+    const mousePos = getEventCanvasCoordinates(e)
+    const clickedObj = getClickedObj(mousePos.x, mousePos.y)
+
+    // If an object was clicked
+    if (clickedObj !== undefined) {
+      // Set that object to the new selected obj
+      selectedObject = clickedObj.id
+      dispatch(setSelectedObject(clickedObj.id))
+    }
+    else {
+      // Clear the selected obj
+      selectedObject = '0'
+      dispatch(setSelectedObject('0'))
+    }
+  }
+
   const handleMouseDown = (e) => {
     // Get the mouse x and y
-    let bound = e.target.getBoundingClientRect();
-    let x = e.clientX - bound.left - e.target.clientLeft;
-    let y = e.clientY - bound.top - e.target.clientTop;
+    const mousePos = getEventCanvasCoordinates(e)
+    const x = mousePos.x
+    const y = mousePos.y
 
-    const selectedElem = getClickedImage(x, y)
+    const clickedElem = getClickedObj(x, y)
 
-    if (selectedElem !== { zIndex: -1 }) {
-      selectedElem.isBeingDragged = true
+    if (clickedElem !== undefined && clickedElem.id === selectedObject) {
+      clickedElem.isBeingDragged = true
 
       // Get the distance between the mouse and obj position
       // This can then be used to determine where to start drag from
-      selectedElem.dragStartX = selectedElem.xPos - x
-      selectedElem.dragStartY = selectedElem.yPos - y
+      clickedElem.dragStartX = clickedElem.xPos - x
+      clickedElem.dragStartY = clickedElem.yPos - y
     }
-
   }
 
   const handleMouseUp = (e) => {
@@ -52,12 +69,10 @@ const Canvas = (props) => {
 
   const handleMouseMove = (e) => {
     // Get the mouse x and y
-    let bound = e.target.getBoundingClientRect();
-    let x = e.clientX - bound.left - e.target.clientLeft;
-    let y = e.clientY - bound.top - e.target.clientTop;
+    const mousePos = getEventCanvasCoordinates(e)
 
-    setMouseX(x)
-    setMouseY(y)
+    setMouseX(mousePos.x)
+    setMouseY(mousePos.y)
 
     canvasObjects.forEach((obj) => {
       if (obj.isBeingDragged === true) {
@@ -65,22 +80,18 @@ const Canvas = (props) => {
 
         // Use the drag start to prevent elem from
         // always being dragged from top left corner
-        updatedObj.xPos = x + updatedObj.dragStartX
-        updatedObj.yPos = y + updatedObj.dragStartY
+        updatedObj.xPos = mousePos.x + updatedObj.dragStartX
+        updatedObj.yPos = mousePos.y + updatedObj.dragStartY
       }
     })
   }
 
-  const getClickedImage = (x, y) => {
-    // Get the top level element that was clicked
-    let clickedObj = { zIndex: -1 };
-    canvasObjects.forEach((obj) => {
-      if (touchesObj(x, y, obj) && obj.zIndex > clickedObj.zIndex) {
-        clickedObj = obj
-      }
-    })
+  const getEventCanvasCoordinates = (e) => {
+    let bound = e.target.getBoundingClientRect();
+    let x = e.clientX - bound.left - e.target.clientLeft;
+    let y = e.clientY - bound.top - e.target.clientTop;
 
-    return clickedObj
+    return { x: x, y: y }
   }
 
   const touchesObj = (x, y, obj) => {
@@ -90,6 +101,20 @@ const Canvas = (props) => {
       return true
     }
     return false
+  }
+
+  const getClickedObj = (x, y) => {
+    // Looks for the top level element in the click x, y
+    // Returns the element or undefined if none found
+    let clickedObj = undefined;
+
+    canvasObjects.forEach((obj) => {
+      if (touchesObj(x, y, obj) && (clickedObj === undefined || obj.zIndex > clickedObj.zIndex)) {
+        clickedObj = obj
+      }
+    })
+
+    return clickedObj ? clickedObj : undefined
   }
 
   useEffect(() => {
@@ -107,7 +132,6 @@ const Canvas = (props) => {
 
       // Loop through all objects on canvas
       objectsOnCanvas.sort((a, b) => (a.zIndex - b.zIndex)).forEach((obj) => {
-
         // If the object is an image
         if (obj.type === 'image') {
 
@@ -133,6 +157,13 @@ const Canvas = (props) => {
           ctx.font = `${obj.fontSize} ${obj.font}`;
           ctx.fillText(obj.text, obj.xPos, obj.yPos);
         }
+
+        // If the object is selected, draw rect around it
+        if (selectedObject === obj.id) {
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = 'rgb(0, 100, 250)';
+          ctx.strokeRect(obj.xPos, obj.yPos, obj.width, obj.height)
+        }
       })
 
       requestId = requestAnimationFrame(draw);
@@ -144,7 +175,7 @@ const Canvas = (props) => {
       cancelAnimationFrame(requestId);
     };
 
-  }, [objectsOnCanvas, canvasWidth, canvasHeight])
+  }, [objectsOnCanvas, canvasWidth, canvasHeight, selectedObject])
 
   return (
     <div className="Canvas">
@@ -154,6 +185,7 @@ const Canvas = (props) => {
         onMouseLeave={(e) => { handleMouseUp(e) }}
         onMouseUp={(e) => { handleMouseUp(e) }}
         onMouseMove={(e) => { handleMouseMove(e) }}
+        onClick={(e) => { handleClick(e) }}
       />
       <CanvasDetails
         width={canvasWidth}

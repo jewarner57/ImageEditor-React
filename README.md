@@ -1,9 +1,10 @@
 ## TODO
-* Finish creating text object for canvas
 * Clicking a canvas object should select it and display actions menu on the right of the canvas
   * delete, move to front, send to back, etc.
 * Add crop image feature
-* Add clear screen button
+* Add react router
+* Create landing page
+* Allow canvas objects to be selected when clicked on
 
 
 # Project Name and Logo
