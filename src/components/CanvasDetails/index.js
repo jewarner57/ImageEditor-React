@@ -1,16 +1,31 @@
+import React, { useState } from 'react'
 import './style.css'
 
 function CanvasDetails(props) {
   const { width, height, setWidth, setHeight, mouseX, mouseY } = props
+  const [displayedWidth, setDisplayedWidth] = useState(width)
+  const [displayedHeight, setDisplayedHeight] = useState(height)
 
   return (
     <div className="CanvasDetails">
       <div className="sizeDetailWrapper">
         <div className="sizeDetail">
-          <p>Width:</p> <input className="sizeInput" value={width} onChange={(e) => setWidth(e.target.value)}></input>
+          <p>Width:</p>
+          <input
+            className="sizeInput"
+            value={displayedWidth}
+            onBlur={(e) => { setWidth(e.target.value) }}
+            onChange={(e) => setDisplayedWidth(e.target.value)}
+          />
         </div>
         <div className="sizeDetail">
-          <p>Height:</p> <input className="sizeInput" value={height} onChange={(e) => setHeight(e.target.value)}></input>
+          <p>Height:</p>
+          <input
+            className="sizeInput"
+            value={displayedHeight}
+            onBlur={(e) => { setHeight(e.target.value) }}
+            onChange={(e) => setDisplayedHeight(e.target.value)}
+          />
         </div>
       </div>
       <p>X: {mouseX}, Y: {mouseY}</p>
