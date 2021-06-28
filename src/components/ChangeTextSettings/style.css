@@ -1,0 +1,12 @@
+.modalContents {
+  padding: 10px 20px 0 20px;
+}
+
+.modalContents, input {
+  margin: 5px 0 20px 0;
+  font-size: 16px;
+}
+
+.modalInputWrapper {
+  display: flex;
+}

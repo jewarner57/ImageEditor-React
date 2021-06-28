@@ -7,6 +7,7 @@
 * Add confirm modal for clearing the entire canvas
 * Set text font to be monospace and change ratio for width to match that font
 * Fill in readme
+* Add functionality to save current work locally to be loaded later
 
 
 # Project Name and Logo
