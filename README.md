@@ -1,11 +1,12 @@
 ## TODO
 * Clicking a canvas object should display actions menu on the right of the canvas
-  * delete, move to front, send to back, etc.
   * Should have button to bring up settings modal for text objects (font size, text value)
 * Add crop image feature
 * Add react router
 * Create landing page
 * Add confirm modal for clearing the entire canvas
+* Set text font to be monospace and change ratio for width to match that font
+* Fill in readme
 
 
 # Project Name and Logo
