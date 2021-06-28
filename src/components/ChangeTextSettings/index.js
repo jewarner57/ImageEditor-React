@@ -12,6 +12,11 @@ function ChangeTextSettings(props) {
   const [fontValue, setFontValue] = useState(selectedItem.fontSize.slice(0, -2))
   const dispatch = useDispatch()
 
+  const getNewTextSize = (textObj) => {
+    console.log(textObj.fontSize.slice(0, -2))
+    console.log(textObj.text.length)
+    return textObj.fontSize.slice(0, -2) * 0.6 * textObj.text.length
+  }
 
   return (
     <div className="ChangeTextSettings">
@@ -35,10 +40,10 @@ function ChangeTextSettings(props) {
                     (e) => {
                       setTextValue(e.target.value)
                       selectedItem.text = e.target.value
+                      selectedItem.width = getNewTextSize(selectedItem)
+                      selectedItem.height = Number(selectedItem.fontSize.slice(0, -2))
+                      dispatch(updateObject(selectedItem))
                     }
-                  }
-                  onBlur={
-                    dispatch(updateObject(selectedItem))
                   }
                 />
               </label>
@@ -51,10 +56,10 @@ function ChangeTextSettings(props) {
                     (e) => {
                       setFontValue(e.target.value)
                       selectedItem.fontSize = e.target.value + 'px'
+                      selectedItem.width = getNewTextSize(selectedItem)
+                      selectedItem.height = Number(selectedItem.fontSize.slice(0, -2))
+                      dispatch(updateObject(selectedItem))
                     }
-                  }
-                  onBlur={
-                    dispatch(updateObject(selectedItem))
                   }
                 />
               </label>

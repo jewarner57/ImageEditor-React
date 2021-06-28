@@ -9,7 +9,7 @@ function AddText(props) {
 
   const addTextToCanvas = () => {
     const text = 'Hello World'
-    const font = 'serif'
+    const font = 'monospace'
     const fontSize = 50
 
     dispatch(addToCanvas(

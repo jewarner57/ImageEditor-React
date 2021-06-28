@@ -13,7 +13,7 @@ const canvasObjectsReducer = (state = [], action) => {
       return [obj, ...state]
 
     case UPDATE_OBJECT:
-
+      console.log(action.payload.obj)
       const objForUpdate = action.payload.obj
 
       return state.map((obj) => {

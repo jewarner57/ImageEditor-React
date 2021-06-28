@@ -8,6 +8,7 @@
 * Set text font to be monospace and change ratio for width to match that font
 * Fill in readme
 * Add functionality to save current work locally to be loaded later
+* Add text color setting for text objects
 
 
 # Project Name and Logo
