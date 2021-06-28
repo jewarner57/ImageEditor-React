@@ -7,7 +7,7 @@ function DeleteItem(props) {
   const dispatch = useDispatch()
 
   return (
-    <div className="ClearCanvas">
+    <div className="DeleteItem">
       <EditorButton
         clickAction={
           () => {
