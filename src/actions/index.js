@@ -32,9 +32,9 @@ export const updateObject = (obj) => {
   }
 }
 
-export const setSelectedObject = (id) => {
+export const setSelectedObject = (obj) => {
   return {
     type: SET_SELECTED_OBJECT,
-    payload: { id }
+    payload: { obj }
   }
 }

@@ -5,6 +5,7 @@
 * Add crop image feature
 * Add react router
 * Create landing page
+* Add confirm modal for clearing the entire canvas
 
 
 # Project Name and Logo

@@ -25,7 +25,14 @@ const canvasObjectsReducer = (state = [], action) => {
 
     case REMOVE_OBJECT:
 
-      return state
+      const objToRemove = action.payload.obj
+
+      return state.filter((canvasObject) => {
+        if (canvasObject.id === objToRemove.id) {
+          return false
+        }
+        return true
+      })
 
     case CLEAR_OBJECTS:
 

@@ -7,7 +7,7 @@ import './style.css'
 const Canvas = (props) => {
 
   const canvasObjects = useSelector(state => state.canvasObjects)
-  let selectedObject = useSelector(state => state.selectedObject).id
+  let selectedObjectID = useSelector(state => state.selectedObject).id
 
   const [canvasWidth, setCanvasWidth] = useState(800)
   const [canvasHeight, setCanvasHeight] = useState(600)
@@ -26,13 +26,13 @@ const Canvas = (props) => {
     // If an object was clicked
     if (clickedObj !== undefined) {
       // Set that object to the new selected obj
-      selectedObject = clickedObj.id
-      dispatch(setSelectedObject(clickedObj.id))
+      selectedObjectID = clickedObj.id
+      dispatch(setSelectedObject(clickedObj))
     }
     else {
       // Clear the selected obj
-      selectedObject = '0'
-      dispatch(setSelectedObject('0'))
+      selectedObjectID = '0'
+      dispatch(setSelectedObject(false))
     }
   }
 
@@ -44,7 +44,7 @@ const Canvas = (props) => {
 
     const clickedElem = getClickedObj(x, y)
 
-    if (clickedElem !== undefined && clickedElem.id === selectedObject) {
+    if (clickedElem !== undefined && clickedElem.id === selectedObjectID) {
       clickedElem.isBeingDragged = true
 
       // Get the distance between the mouse and obj position
@@ -159,7 +159,7 @@ const Canvas = (props) => {
         }
 
         // If the object is selected, draw rect around it
-        if (selectedObject === obj.id) {
+        if (selectedObjectID === obj.id) {
           ctx.lineWidth = 2;
           ctx.strokeStyle = 'rgb(0, 100, 250)';
           ctx.strokeRect(obj.xPos, obj.yPos, obj.width, obj.height)
@@ -175,7 +175,7 @@ const Canvas = (props) => {
       cancelAnimationFrame(requestId);
     };
 
-  }, [objectsOnCanvas, canvasWidth, canvasHeight, selectedObject])
+  }, [objectsOnCanvas, canvasWidth, canvasHeight, selectedObjectID])
 
   return (
     <div className="Canvas">

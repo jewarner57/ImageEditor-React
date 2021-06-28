@@ -1,6 +1,7 @@
 import ImageUpload from '../ImageUpload'
 import AddText from '../AddText'
 import ClearCanvas from '../ClearCanvas'
+import SelectedObjectToolbar from '../SelectedObjectToolbar'
 import Canvas from '../Canvas'
 import VerticalToolbar from '../VerticalToolbar'
 
@@ -21,9 +22,8 @@ function App() {
             contents={[<AddText />, <ImageUpload />, <ClearCanvas />]}
           />
           <Canvas></Canvas>
-          <VerticalToolbar
-            contents={[<ImageUpload />]}
-          />
+
+          <SelectedObjectToolbar />
         </div>
       </Provider>
     </div>

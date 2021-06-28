@@ -2,7 +2,7 @@ import EditorButton from '../EditorButton'
 import { useDispatch } from 'react-redux'
 import { clearCanvas } from '../../actions';
 
-function AddText(props) {
+function ClearCanvas(props) {
   const dispatch = useDispatch()
 
   return (
@@ -16,4 +16,4 @@ function AddText(props) {
   )
 }
 
-export default AddText
+export default ClearCanvas
