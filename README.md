@@ -1,19 +1,27 @@
-# Project Name and Logo
+![Image Editor React](./public/assets/readme-header-image.png)
+# Image Editor React
 
-* [Introduction / Project Purpose / Why should user care](#IntroductionProjectPurposeWhyshouldusercare)
+* [What is this?](#intro)
 * [Features](#Features)
-* [How to install / config / launch / Usage](#Howtoinstallconfiglaunch)
+* [Local Installation](#localinstall)
 * [Link to application demo](#Linktoapplicationdemo)
 * [Screenshots of app](#Screenshotsofapp)
 * [Technologies used](#Technologiesused)
-* [Resources / Shouts outs / Credit](#ResourcesShoutsoutsCredit)
+* [Shouts outs and Credit](#ResourcesShoutsoutsCredit)
 
 
-##  <a name='IntroductionProjectPurposeWhyshouldusercare'></a>Introduction / Project Purpose / Why should user care
+##  <a name='intro'></a>What is this?
+* This is an image editor built with simplicity in mind. Making modifications to images shouldn't be a struggle. Stop before you spend five minutes booting up that old, slow image editing software. This editor is fast, so you can be too.
 
 ##  <a name='Features'></a>Features
+* Upload images to the canvas instantly.
+* Create and edit shapes and more to create your perfect project.
 
-##  <a name='Howtoinstallconfiglaunch'></a>How to install / config / launch / Usage
+##  <a name='localinstall'></a>Local Installation
+1. Start by cloning this repo with git
+1. Navigate to the project directory
+1. Run: `npm install`
+1. Run: `npm run start`
 
 ##  <a name='Linktoapplicationdemo'></a>Link to application demo
 
@@ -21,4 +29,5 @@
 
 ##  <a name='Technologiesused'></a>Technologies used
 
-##  <a name='ResourcesShoutsoutsCredit'></a>Resources / Shouts outs / Credit
+##  <a name='ResourcesShoutsoutsCredit'></a>Shout outs and Credit
+* Shout out to [this medium article](https://medium.com/@pdx.lucasm/canvas-with-react-js-32e133c05258) that got me started.
