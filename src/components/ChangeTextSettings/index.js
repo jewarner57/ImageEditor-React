@@ -1,22 +1,25 @@
 import EditorButton from '../EditorButton'
 import SettingsModal from '../SettingsModal'
+import SettingInput from '../SettingInput'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateObject } from '../../actions';
 import './style.css'
 
 function ChangeTextSettings(props) {
-  const [modalOpen, setModalOpen] = useState(false)
   const selectedItem = useSelector(state => state.selectedObject)
+  const [modalOpen, setModalOpen] = useState(false)
   const [textValue, setTextValue] = useState(selectedItem.text)
   const [fontValue, setFontValue] = useState(selectedItem.fontSize.slice(0, -2))
   const [textColor, setTextColor] = useState(selectedItem.color)
   const dispatch = useDispatch()
 
-  const getNewTextSize = (textObj) => {
+  const setNewTextSize = (textObj) => {
     console.log(textObj.fontSize.slice(0, -2))
     console.log(textObj.text.length)
-    return textObj.fontSize.slice(0, -2) * 0.6 * textObj.text.length
+    selectedItem.width = textObj.fontSize.slice(0, -2) * 0.6 * textObj.text.length
+    selectedItem.height = Number(selectedItem.fontSize.slice(0, -2))
+    dispatch(updateObject(selectedItem))
   }
 
   return (
@@ -33,37 +36,27 @@ function ChangeTextSettings(props) {
           header="Edit Textbox"
           contents={
             <div className="modalContents">
-              <label>
-                <div>Text:</div>
-                <input
-                  value={textValue}
-                  onChange={
-                    (e) => {
-                      setTextValue(e.target.value)
-                      selectedItem.text = e.target.value
-                      selectedItem.width = getNewTextSize(selectedItem)
-                      selectedItem.height = Number(selectedItem.fontSize.slice(0, -2))
-                      dispatch(updateObject(selectedItem))
-                    }
+              <SettingInput
+                label="Text"
+                initialVal={selectedItem.text}
+                changeAction={
+                  (e) => {
+                    selectedItem.text = e.target.value
+                    setNewTextSize(selectedItem)
                   }
-                />
-              </label>
+                }
+              />
 
-              <label>
-                <div>Size:</div>
-                <input
-                  value={fontValue}
-                  onChange={
-                    (e) => {
-                      setFontValue(e.target.value)
-                      selectedItem.fontSize = e.target.value + 'px'
-                      selectedItem.width = getNewTextSize(selectedItem)
-                      selectedItem.height = Number(selectedItem.fontSize.slice(0, -2))
-                      dispatch(updateObject(selectedItem))
-                    }
+              <SettingInput
+                label="Size"
+                initialVal={selectedItem.fontSize.slice(0, -2)}
+                changeAction={
+                  (e) => {
+                    selectedItem.fontSize = e.target.value + 'px'
+                    setNewTextSize(selectedItem)
                   }
-                />
-              </label>
+                }
+              />
 
               <label>
                 <div>Color:</div>
