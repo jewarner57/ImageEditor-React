@@ -10,6 +10,7 @@ function ChangeTextSettings(props) {
   const selectedItem = useSelector(state => state.selectedObject)
   const [textValue, setTextValue] = useState(selectedItem.text)
   const [fontValue, setFontValue] = useState(selectedItem.fontSize.slice(0, -2))
+  const [textColor, setTextColor] = useState(selectedItem.color)
   const dispatch = useDispatch()
 
   const getNewTextSize = (textObj) => {
@@ -29,11 +30,11 @@ function ChangeTextSettings(props) {
       {modalOpen ?
         <SettingsModal
           exitAction={setModalOpen}
-          header="Text Settings"
+          header="Edit Textbox"
           contents={
             <div className="modalContents">
               <label>
-                <div>Text Value:</div>
+                <div>Text:</div>
                 <input
                   value={textValue}
                   onChange={
@@ -49,7 +50,7 @@ function ChangeTextSettings(props) {
               </label>
 
               <label>
-                <div>Font Size:</div>
+                <div>Size:</div>
                 <input
                   value={fontValue}
                   onChange={
@@ -58,6 +59,21 @@ function ChangeTextSettings(props) {
                       selectedItem.fontSize = e.target.value + 'px'
                       selectedItem.width = getNewTextSize(selectedItem)
                       selectedItem.height = Number(selectedItem.fontSize.slice(0, -2))
+                      dispatch(updateObject(selectedItem))
+                    }
+                  }
+                />
+              </label>
+
+              <label>
+                <div>Color:</div>
+                <input
+                  value={textColor}
+                  type="color"
+                  onChange={
+                    (e) => {
+                      setTextColor(e.target.value)
+                      selectedItem.color = e.target.value
                       dispatch(updateObject(selectedItem))
                     }
                   }

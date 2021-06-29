@@ -1,16 +1,3 @@
-## TODO
-* Clicking a canvas object should display actions menu on the right of the canvas
-  * Should have button to bring up settings modal for text objects (font size, text value)
-* Add crop image feature
-* Add react router
-* Create landing page
-* Add confirm modal for clearing the entire canvas
-* Set text font to be monospace and change ratio for width to match that font
-* Fill in readme
-* Add functionality to save current work locally to be loaded later
-* Add text color setting for text objects
-
-
 # Project Name and Logo
 
 * [Introduction / Project Purpose / Why should user care](#IntroductionProjectPurposeWhyshouldusercare)

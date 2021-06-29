@@ -154,6 +154,7 @@ const Canvas = (props) => {
         // If the object is text
         else if (obj.type === 'text') {
           ctx.textBaseline = 'top';
+          ctx.fillStyle = obj.color
           ctx.font = `${obj.fontSize} ${obj.font}`;
           ctx.fillText(obj.text, obj.xPos, obj.yPos);
         }

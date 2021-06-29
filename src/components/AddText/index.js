@@ -25,7 +25,8 @@ function AddText(props) {
         height: fontSize,
         isBeingDragged: false,
         dragStartX: 0,
-        dragStartY: 0
+        dragStartY: 0,
+        color: '#000000'
       }
     ))
   }
