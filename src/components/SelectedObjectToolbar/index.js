@@ -3,6 +3,7 @@ import DeleteItem from '../DeleteItem'
 import BringForward from '../BringForward'
 import SendBackward from '../SendBackward'
 import ChangeTextSettings from '../ChangeTextSettings'
+import ChangeImageSettings from '../ChangeImageSettings'
 import { useSelector } from 'react-redux'
 import './style.css'
 
@@ -11,10 +12,14 @@ function SelectedObjectToolbar(props) {
   const selectedItem = useSelector(state => state.selectedObject)
 
   const itemSpecificTools = (type) => {
-    if (type === 'text') {
-      return [<ChangeTextSettings />]
+    switch (type) {
+      case 'text':
+        return [<ChangeTextSettings />]
+      case 'image':
+        return [<ChangeImageSettings />]
+      default:
+        return []
     }
-    return []
   }
 
   return (

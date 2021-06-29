@@ -6,17 +6,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { updateObject } from '../../actions';
 import './style.css'
 
-function ChangeTextSettings(props) {
+function ChangeImageSettings(props) {
   const selectedItem = useSelector(state => state.selectedObject)
   const [modalOpen, setModalOpen] = useState(false)
-  const [textColor, setTextColor] = useState(selectedItem.color)
   const dispatch = useDispatch()
-
-  const setNewTextSize = (textObj) => {
-    selectedItem.width = textObj.fontSize.slice(0, -2) * 0.6 * textObj.text.length
-    selectedItem.height = Number(selectedItem.fontSize.slice(0, -2))
-    dispatch(updateObject(selectedItem))
-  }
 
   return (
     <div className="ChangeTextSettings">
@@ -29,45 +22,34 @@ function ChangeTextSettings(props) {
       {modalOpen ?
         <SettingsModal
           exitAction={setModalOpen}
-          header="Edit Textbox"
+          header="Edit Image"
           contents={
             <div className="modalContents">
               <SettingInput
-                label="Text"
-                initialVal={selectedItem.text}
+                label="Width"
+                initialVal={selectedItem.width}
                 changeAction={
                   (e) => {
-                    selectedItem.text = e.target.value
-                    setNewTextSize(selectedItem)
+                    selectedItem.width = Number(e.target.value)
+                    dispatch(updateObject(selectedItem))
                   }
                 }
               />
-
+              {/* Keep image dimensions checkbox */}
+              {/* Add check box */}
+              {/* Display bottom if not check */}
+              {/* If not checked then width slider should also update height based in the image ratio */}
               <SettingInput
-                label="Size"
-                initialVal={selectedItem.fontSize.slice(0, -2)}
+                label="Height"
+                initialVal={selectedItem.height}
                 changeAction={
                   (e) => {
-                    selectedItem.fontSize = e.target.value + 'px'
-                    setNewTextSize(selectedItem)
+                    selectedItem.height = Number(e.target.value)
+                    dispatch(updateObject(selectedItem))
                   }
                 }
               />
 
-              <label>
-                <div>Color:</div>
-                <input
-                  value={textColor}
-                  type="color"
-                  onChange={
-                    (e) => {
-                      setTextColor(e.target.value)
-                      selectedItem.color = e.target.value
-                      dispatch(updateObject(selectedItem))
-                    }
-                  }
-                />
-              </label>
             </div>
           } />
         : ''}
@@ -75,4 +57,4 @@ function ChangeTextSettings(props) {
   )
 }
 
-export default ChangeTextSettings
+export default ChangeImageSettings
