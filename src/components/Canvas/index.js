@@ -137,6 +137,13 @@ const Canvas = (props) => {
         // If the object is an image
         if (obj.type === 'image') {
 
+          // If image is being cropped
+          if (selectedObjectID === obj.id && obj.isBeingCropped) {
+            ctx.lineWidth = 8;
+            ctx.strokeStyle = 'rgb(0, 255, 0)';
+            ctx.strokeRect(obj.xPos, obj.yPos, obj.width, obj.height)
+          }
+
           if (!images[obj.id]) {
             const img = new Image()
             img.src = obj.url

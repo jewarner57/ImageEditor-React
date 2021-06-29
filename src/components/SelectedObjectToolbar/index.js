@@ -4,6 +4,7 @@ import BringForward from '../BringForward'
 import SendBackward from '../SendBackward'
 import ChangeTextSettings from '../ChangeTextSettings'
 import ChangeImageSettings from '../ChangeImageSettings'
+import CropImage from '../CropImage'
 import { useSelector } from 'react-redux'
 import './style.css'
 
@@ -16,7 +17,7 @@ function SelectedObjectToolbar(props) {
       case 'text':
         return [<ChangeTextSettings />]
       case 'image':
-        return [<ChangeImageSettings />]
+        return [<ChangeImageSettings />, <CropImage />]
       default:
         return []
     }
