@@ -28,6 +28,7 @@
 ##  <a name='Screenshotsofapp'></a>Screenshots of app
 
 ##  <a name='Technologiesused'></a>Technologies used
+* Built with React and Redux
 
 ##  <a name='ResourcesShoutsoutsCredit'></a>Shout outs and Credit
 * Shout out to [this medium article](https://medium.com/@pdx.lucasm/canvas-with-react-js-32e133c05258) that got me started.
