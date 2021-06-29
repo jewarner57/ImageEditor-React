@@ -9,13 +9,14 @@ import './style.css'
 function ChangeImageSettings(props) {
   const selectedItem = useSelector(state => state.selectedObject)
   const [modalOpen, setModalOpen] = useState(false)
+  const [scaleProportionally, setScaleProporionally] = useState(true)
   const dispatch = useDispatch()
 
   return (
     <div className="ChangeTextSettings">
       <EditorButton
         clickAction={() => { setModalOpen(!modalOpen) }}
-        icon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 20v1h-4v-1h.835c.258 0 .405-.178.321-.422l-.473-1.371h-2.231l-.575-1.59h2.295l-1.362-4.077-1.154 3.451-.879-2.498.921-2.493h2.222l3.033 8.516c.111.315.244.484.578.484h.469zm-6-1h1v2h-7v-2h.532c.459 0 .782-.453.633-.887l-.816-2.113h-6.232l-.815 2.113c-.149.434.174.887.633.887h1.065v2h-7v-2h.43c.593 0 1.123-.375 1.32-.935l5.507-15.065h3.952l5.507 15.065c.197.56.69.935 1.284.935zm-10.886-6h4.238l-2.259-6.199-1.979 6.199z" /></svg>}
+        icon={<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path d="M15.562 20.22l-3.562.718.719-3.562 2.843 2.844zm-2.136-3.552l2.844 2.845 7.73-7.73-2.845-2.845-7.729 7.73zm-2.91.332l4.51-4.76-2.026-3.24-2.52 4-2.48-1.96-4 5.96h6.516zm-3.516-8.5c0-.828-.672-1.5-1.5-1.5s-1.5.672-1.5 1.5c0 .829.672 1.5 1.5 1.5s1.5-.671 1.5-1.5zm3.352 10.5h-8.352v-14h18v2.312h2v-4.312h-22v18h9.969l.383-2z" /></svg>}
         tooltip="Text Settings"
       />
 
@@ -32,23 +33,40 @@ function ChangeImageSettings(props) {
                   (e) => {
                     selectedItem.width = Number(e.target.value)
                     dispatch(updateObject(selectedItem))
+
+                    if (scaleProportionally) {
+                      selectedItem.height = Number(e.target.value) * selectedItem.sizeProportion
+                    }
                   }
                 }
               />
+
+              {
+                scaleProportionally ? '' :
+                  <SettingInput
+                    label="Height"
+                    initialVal={selectedItem.height}
+                    changeAction={
+                      (e) => {
+                        selectedItem.height = Number(e.target.value)
+                        dispatch(updateObject(selectedItem))
+                      }
+                    }
+                  />
+              }
+
               {/* Keep image dimensions checkbox */}
               {/* Add check box */}
+              <label>
+                <div>Scale Proportionally</div>
+                <input
+                  checked={scaleProportionally}
+                  onChange={() => setScaleProporionally(!scaleProportionally)}
+                  type="checkbox"
+                />
+              </label>
               {/* Display bottom if not check */}
               {/* If not checked then width slider should also update height based in the image ratio */}
-              <SettingInput
-                label="Height"
-                initialVal={selectedItem.height}
-                changeAction={
-                  (e) => {
-                    selectedItem.height = Number(e.target.value)
-                    dispatch(updateObject(selectedItem))
-                  }
-                }
-              />
 
             </div>
           } />

@@ -26,7 +26,8 @@ function ImageUpload(props) {
           height: img.height,
           isBeingDragged: false,
           dragStartX: 0,
-          dragStartY: 0
+          dragStartY: 0,
+          sizeProportion: img.height / img.width
         }
       ))
     }
