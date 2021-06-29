@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { updateObject, setSelectedObject } from '../../actions';
+import { updateObject, setSelectedObject, removeFromCanvas } from '../../actions';
 import CanvasDetails from '../CanvasDetails'
 import './style.css'
 
@@ -9,6 +9,7 @@ const Canvas = (props) => {
   const { setCanvas } = props
   const canvasObjects = useSelector(state => state.canvasObjects)
   let selectedObjectID = useSelector(state => state.selectedObject).id
+  let selectObject = useSelector(state => state.selectedObject)
 
   const [canvasWidth, setCanvasWidth] = useState(800)
   const [canvasHeight, setCanvasHeight] = useState(600)
@@ -30,7 +31,7 @@ const Canvas = (props) => {
       selectedObjectID = clickedObj.id
       dispatch(setSelectedObject(clickedObj))
     }
-    else {
+    else if (selectObject.isBeingCropped === false) {
       // Clear the selected obj
       selectedObjectID = '0'
       dispatch(setSelectedObject(false))
@@ -45,7 +46,7 @@ const Canvas = (props) => {
 
     const clickedElem = getClickedObj(x, y)
 
-    if (clickedElem !== undefined && clickedElem.id === selectedObjectID) {
+    if (clickedElem !== undefined && clickedElem.id === selectedObjectID && clickedElem.isBeingCropped === false) {
       clickedElem.isBeingDragged = true
 
       // Get the distance between the mouse and obj position
@@ -137,13 +138,6 @@ const Canvas = (props) => {
         // If the object is an image
         if (obj.type === 'image') {
 
-          // If image is being cropped
-          if (selectedObjectID === obj.id && obj.isBeingCropped) {
-            ctx.lineWidth = 8;
-            ctx.strokeStyle = 'rgb(0, 255, 0)';
-            ctx.strokeRect(obj.xPos, obj.yPos, obj.width, obj.height)
-          }
-
           if (!images[obj.id]) {
             const img = new Image()
             img.src = obj.url
@@ -166,6 +160,10 @@ const Canvas = (props) => {
           ctx.fillStyle = obj.color
           ctx.font = `${obj.fontSize} ${obj.font}`;
           ctx.fillText(obj.text, obj.xPos, obj.yPos);
+        }
+        else if (obj.type === 'handle') {
+          ctx.fillStyle = obj.color;
+          ctx.fillRect(obj.xPos, obj.yPos, obj.width, obj.height)
         }
 
         // If the object is selected, draw rect around it
