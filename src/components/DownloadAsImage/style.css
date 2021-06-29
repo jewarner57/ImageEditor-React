@@ -1,0 +1,23 @@
+.hiddenDownloadLink {
+  visibility: hidden;
+  display: none;
+}
+
+.downloadModal {
+  padding: 10px 20px;
+}
+
+.submitButton {
+  border-radius: 5px;
+  background-color: rgb(221, 221, 221);
+  width: 100px;
+  padding: 10px;
+  color: black;
+  text-align: center;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.submitButton:hover {
+  background-color: rgb(206, 223, 255);
+}

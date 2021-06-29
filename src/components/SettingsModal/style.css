@@ -13,6 +13,7 @@
 .closeModal {
   width: 20px;
   margin-left: auto;
+  cursor: pointer;
 }
 
 .header {

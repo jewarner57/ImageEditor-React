@@ -6,6 +6,7 @@ import './style.css'
 
 const Canvas = (props) => {
 
+  const { setCanvas } = props
   const canvasObjects = useSelector(state => state.canvasObjects)
   let selectedObjectID = useSelector(state => state.selectedObject).id
 
@@ -120,6 +121,7 @@ const Canvas = (props) => {
   useEffect(() => {
 
     const canvas = canvasRef.current
+    setCanvas(canvas)
     canvas.width = canvasWidth
     canvas.height = canvasHeight
     const ctx = canvas.getContext('2d')
@@ -176,7 +178,7 @@ const Canvas = (props) => {
       cancelAnimationFrame(requestId);
     };
 
-  }, [objectsOnCanvas, canvasWidth, canvasHeight, selectedObjectID])
+  }, [objectsOnCanvas, canvasWidth, canvasHeight, selectedObjectID, setCanvas])
 
   return (
     <div className="Canvas">
