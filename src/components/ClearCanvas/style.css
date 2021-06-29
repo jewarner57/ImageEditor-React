@@ -1,0 +1,25 @@
+.modalButtonWrapper {
+  margin: 10px 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modalButton {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.clearButton {
+  background-color: rgb(240, 82, 82);
+  color: white;
+}
+
+.cancelButton {
+  background-color: rgb(219, 219, 219);
+}
+
+.clearCanvasModal {
+  padding: 10px 20px;
+}

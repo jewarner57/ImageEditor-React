@@ -2,9 +2,12 @@ import './style.css'
 import EditorButton from '../EditorButton'
 import SettingsModal from '../SettingsModal'
 import SettingInput from '../SettingInput'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { setSelectedObject } from '../../actions';
 
 function DownloadAsImage(props) {
+  const dispatch = useDispatch()
   const [linkRef, setLinkRef] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [download, setDownload] = useState(`Image-${String(new Date().getTime()).slice(8)}`)
@@ -23,8 +26,8 @@ function DownloadAsImage(props) {
 
   // This helper function is necessary because
   // The setting input sends back an event object
-  // To the changeAction prop we send it which
-  // Cant be set directly to state
+  // to the changeAction prop we send it which
+  // Cannot be set directly to state
   const setDownloadValue = (e) => {
     setDownload(e.target.value)
   }
