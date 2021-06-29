@@ -35,7 +35,7 @@ function ChangeImageSettings(props) {
                     dispatch(updateObject(selectedItem))
 
                     if (scaleProportionally) {
-                      selectedItem.height = Number(e.target.value) * selectedItem.sizeProportion
+                      selectedItem.height = (Number(e.target.value) * selectedItem.sizeProportion).toFixed(2)
                     }
                   }
                 }
@@ -48,7 +48,7 @@ function ChangeImageSettings(props) {
                     initialVal={selectedItem.height}
                     changeAction={
                       (e) => {
-                        selectedItem.height = Number(e.target.value)
+                        selectedItem.height = Number(e.target.value).toFixed(2)
                         dispatch(updateObject(selectedItem))
                       }
                     }
