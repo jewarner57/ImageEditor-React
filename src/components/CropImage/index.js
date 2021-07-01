@@ -11,7 +11,7 @@ function CropImage(props) {
   const dispatch = useDispatch()
   const [rectIDs, setRectIDs] = useState([])
 
-  const createNewRect = (x, y, width, height) => {
+  const createNewRect = (x, y, width, height, position) => {
     const id = uuidv4()
 
     dispatch(addToCanvas({
@@ -21,7 +21,10 @@ function CropImage(props) {
       yPos: y,
       width: width,
       height: height,
+      handleLocation: position,
       isBeingDragged: false,
+      isBeingCropped: false,
+      parentID: selectedItem.id,
       dragStartX: 0,
       dragStartY: 0,
       color: '#000000',
@@ -41,8 +44,8 @@ function CropImage(props) {
             // If a crop is starting
             if (selectedItem.isBeingCropped) {
               setRectIDs([
-                createNewRect(selectedItem.xPos, selectedItem.yPos, 30, 30),
-                createNewRect(Number(selectedItem.width) + Number(selectedItem.xPos) - 30, Number(selectedItem.height) + Number(selectedItem.yPos) - 30, 30, 30)
+                createNewRect(selectedItem.xPos, selectedItem.yPos, 30, 30, 'top'),
+                createNewRect(Number(selectedItem.width) + Number(selectedItem.xPos) - 30, Number(selectedItem.height) + Number(selectedItem.yPos) - 30, 30, 30, 'bottom')
               ])
               console.log()
             }

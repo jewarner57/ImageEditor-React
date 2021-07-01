@@ -28,12 +28,14 @@ const Canvas = (props) => {
     // If an object was clicked
     if (clickedObj !== undefined) {
       // Set that object to the new selected obj
-      selectedObjectID = clickedObj.id
-      dispatch(setSelectedObject(clickedObj))
+      if (clickedObj.type !== 'handle') {
+        selectedObjectID = clickedObj.id
+        dispatch(setSelectedObject(clickedObj))
+      }
     }
-    else if (selectObject.isBeingCropped === false) {
+    else if (selectObject.isBeingCropped !== true) {
       // Clear the selected obj
-      selectedObjectID = '0'
+      selectedObjectID = undefined
       dispatch(setSelectedObject(false))
     }
   }
@@ -46,7 +48,7 @@ const Canvas = (props) => {
 
     const clickedElem = getClickedObj(x, y)
 
-    if (clickedElem !== undefined && clickedElem.id === selectedObjectID && clickedElem.isBeingCropped === false) {
+    if ((clickedElem !== undefined && (clickedElem.id === selectedObjectID || clickedElem.parentID === selectedObjectID) && (clickedElem.isBeingCropped === false || clickedElem.isBeingCropped === undefined))) {
       clickedElem.isBeingDragged = true
 
       // Get the distance between the mouse and obj position
@@ -65,6 +67,10 @@ const Canvas = (props) => {
 
         // Update object position once drag is finished
         dispatch(updateObject(updatedObj))
+
+        if (obj.type === 'handle' && obj.parentID === selectedObjectID) {
+          updateImageCrop(obj)
+        }
       }
     })
   }
@@ -119,6 +125,36 @@ const Canvas = (props) => {
     return clickedObj ? clickedObj : undefined
   }
 
+  const updateImageCrop = (handle) => {
+    if (handle.handleLocation === 'top') {
+      const topHandleX = handle.xPos
+      const topHandleY = handle.yPos
+
+      console.log(selectObject.xPos)
+      console.log(selectObject.width)
+
+      selectObject.sx = -(selectObject.xPos - topHandleX)
+      selectObject.sy = -(selectObject.yPos - topHandleY)
+
+      selectObject.width -= selectObject.sx
+      selectObject.height -= selectObject.sy
+
+      selectObject.xPos += selectObject.sx
+      selectObject.yPos += selectObject.sy
+
+    }
+    else if (handle.handleLocation === 'bottom') {
+      const bottomHandleX = handle.xPos
+      const bottomHandleY = handle.yPos
+
+      selectObject.sWidth = selectObject.xPos - bottomHandleX
+      selectObject.sHeight = selectObject.yPos - bottomHandleY
+
+    }
+
+    dispatch(updateObject(selectObject))
+  }
+
   useEffect(() => {
 
     const canvas = canvasRef.current
@@ -144,14 +180,14 @@ const Canvas = (props) => {
 
             img.onload = () => {
               images[obj.id] = img
-              ctx.drawImage(img, obj.xPos, obj.yPos, obj.width, obj.height)
+              ctx.drawImage(img, obj.sx, obj.sy, obj.sWidth, obj.sHeight, obj.xPos, obj.yPos, obj.width, obj.height)
             }
             img.onerror = function (err) {
               console.log(`image failed to load from ${img.src}`);
             };
           }
           else {
-            ctx.drawImage(images[obj.id], obj.xPos, obj.yPos, obj.width, obj.height)
+            ctx.drawImage(images[obj.id], obj.sx, obj.sy, obj.sWidth, obj.sHeight, obj.xPos, obj.yPos, obj.width, obj.height)
           }
         }
         // If the object is text
