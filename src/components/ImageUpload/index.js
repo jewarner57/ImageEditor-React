@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useState } from 'react'
-import { addToCanvas } from '../../actions';
+import { addToCanvas, setSelectedObject } from '../../actions';
 import { v4 as uuidv4 } from 'uuid';
 import EditorButton from '../EditorButton'
 import './style.css'
@@ -13,29 +13,32 @@ function ImageUpload(props) {
 
     const img = new Image()
     img.src = URL.createObjectURL(event.target.files[0])
+    const id = uuidv4()
 
     img.onload = () => {
-      dispatch(addToCanvas(
-        {
-          type: 'image',
-          id: uuidv4(),
-          url: img.src,
-          xPos: 0,
-          yPos: 0,
-          width: img.width,
-          height: img.height,
-          isBeingCropped: false,
-          isBeingDragged: false,
-          dragStartX: 0,
-          dragStartY: 0,
-          sizeProportion: img.height / img.width,
-          sx: 0,
-          sy: 0,
-          sWidth: img.width,
-          sHeight: img.height,
-        }
-      ))
+      const imgObj = {
+        type: 'image',
+        id: id,
+        url: img.src,
+        xPos: 0,
+        yPos: 0,
+        width: img.width,
+        height: img.height,
+        isBeingCropped: false,
+        isBeingDragged: false,
+        dragStartX: 0,
+        dragStartY: 0,
+        sizeProportion: img.height / img.width,
+        sx: 0,
+        sy: 0,
+        sWidth: img.width,
+        sHeight: img.height,
+      }
+
+      dispatch(addToCanvas(imgObj))
+      dispatch(setSelectedObject(imgObj))
     }
+
   }
 
   const uploadFile = (e) => {

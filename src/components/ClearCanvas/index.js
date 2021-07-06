@@ -24,7 +24,11 @@ function ClearCanvas(props) {
               <div>Are you sure you want to clear the canvas?</div>
               <div className="modalButtonWrapper">
                 <div className="cancelButton modalButton" onClick={() => setModalOpen(false)}>Cancel</div>
-                <div className="clearButton modalButton" onClick={() => dispatch(clearCanvas())}>Clear</div>
+                <div className="clearButton modalButton"
+                  onClick={() => {
+                    dispatch(clearCanvas())
+                    setModalOpen(false)
+                  }}>Clear</div>
               </div>
             </div>
           }

@@ -171,6 +171,7 @@ const Canvas = (props) => {
 
       // Loop through all objects on canvas
       objectsOnCanvas.sort((a, b) => (a.zIndex - b.zIndex)).forEach((obj) => {
+
         // If the object is an image
         if (obj.type === 'image') {
 
