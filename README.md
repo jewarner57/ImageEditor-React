@@ -4,7 +4,7 @@
 * [What is this?](#intro)
 * [Features](#Features)
 * [Local Installation](#localinstall)
-* [Link to application demo](#Linktoapplicationdemo)
+* [Application demo](#Linktoapplicationdemo)
 * [Screenshots of app](#Screenshotsofapp)
 * [Technologies used](#Technologiesused)
 * [Shouts outs and Credit](#ResourcesShoutsoutsCredit)
@@ -23,7 +23,8 @@
 1. Run: `npm install`
 1. Run: `npm run start`
 
-##  <a name='Linktoapplicationdemo'></a>Link to application demo
+##  <a name='Linktoapplicationdemo'></a>Application demo
+* Check out the [live demo](https://jewarner57.github.io/ImageEditor-React/)!
 
 ##  <a name='Screenshotsofapp'></a>Screenshots of app
 
