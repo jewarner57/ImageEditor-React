@@ -4,6 +4,7 @@ import BringForward from '../BringForward'
 import SendBackward from '../SendBackward'
 import ChangeTextSettings from '../ChangeTextSettings'
 import ChangeImageSettings from '../ChangeImageSettings'
+import Deselect from '../Deselect'
 import CropImage from '../CropImage'
 import { useSelector } from 'react-redux'
 import './style.css'
@@ -35,6 +36,7 @@ function SelectedObjectToolbar(props) {
                 < DeleteItem />,
                 <BringForward />,
                 <SendBackward />,
+                <Deselect />
               ]
               :
               []

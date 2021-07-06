@@ -103,9 +103,8 @@ const Canvas = (props) => {
   }
 
   const touchesObj = (x, y, obj) => {
-    // If x and y are touching the object
     if ((x > obj.xPos && x < obj.xPos + obj.width)
-      && (y > obj.yPos && y < obj.yPos + obj.height)) {
+      && (y > obj.yPos && y < obj.yPos + Number(obj.height))) {
       return true
     }
     return false

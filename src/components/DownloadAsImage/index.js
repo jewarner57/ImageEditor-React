@@ -15,7 +15,6 @@ function DownloadAsImage(props) {
   const downloadCanvas = () => {
     const canvas = props.canvas
     const url = canvas.toDataURL("image/png");
-
     // I used a ref here because if you use state
     // Then it doesnt update before linkRef.click()
     // Is called which causes an empty download to trigger
@@ -44,7 +43,20 @@ function DownloadAsImage(props) {
         <SettingsModal exitAction={setShowModal} header="Download As Image" contents={
           <div className="downloadModal">
             <SettingInput label="Filename" initialVal={download} changeAction={setDownloadValue} />
-            <div className="submitButton" onClick={() => downloadCanvas()}>Download</div>
+            <div className="submitButton"
+              onClick={() => {
+                dispatch(setSelectedObject(false));
+
+                // I use setimeout to give time for the setSelectedObject dispatch
+                // To cause all items to be deselected and for those changes
+                // To show on the canvas
+                setTimeout(
+                  function () {
+                    downloadCanvas()
+                  },
+                  250
+                );
+              }}>Download</div>
           </div>
         } />
         : ""}
