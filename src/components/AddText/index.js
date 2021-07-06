@@ -1,7 +1,7 @@
 import './style.css'
 import EditorButton from '../EditorButton'
 import { useDispatch } from 'react-redux'
-import { addToCanvas } from '../../actions';
+import { addToCanvas, setSelectedObject } from '../../actions';
 import { v4 as uuidv4 } from 'uuid';
 
 function AddText(props) {
@@ -12,23 +12,24 @@ function AddText(props) {
     const font = 'monospace'
     const fontSize = 50
 
-    dispatch(addToCanvas(
-      {
-        type: 'text',
-        id: uuidv4(),
-        text: text,
-        font: font,
-        fontSize: `${fontSize}px`,
-        xPos: 10,
-        yPos: fontSize,
-        width: fontSize * 0.6 * text.length,
-        height: fontSize,
-        isBeingDragged: false,
-        dragStartX: 0,
-        dragStartY: 0,
-        color: '#000000'
-      }
-    ))
+    const textObj = {
+      type: 'text',
+      id: uuidv4(),
+      text: text,
+      font: font,
+      fontSize: `${fontSize}px`,
+      xPos: 10,
+      yPos: fontSize,
+      width: fontSize * 0.6 * text.length,
+      height: fontSize,
+      isBeingDragged: false,
+      dragStartX: 0,
+      dragStartY: 0,
+      color: '#000000'
+    }
+
+    dispatch(addToCanvas(textObj))
+    dispatch(setSelectedObject(textObj))
   }
 
   return (
