@@ -33,10 +33,10 @@ function SelectedObjectToolbar(props) {
             selectedItem ?
               [
                 ...itemSpecificTools(selectedItem.type),
-                < DeleteItem />,
                 <BringForward />,
                 <SendBackward />,
-                <Deselect />
+                <Deselect />,
+                < DeleteItem />
               ]
               :
               []

@@ -25,7 +25,9 @@ function App() {
           <VerticalToolbar
             contents={[<AddText />, <ImageUpload />, <DownloadAsImage canvas={canvas} />, <ClearCanvas />]}
           />
-          <Canvas setCanvas={setCanvas}></Canvas>
+          <div className="canvasContainer">
+            <Canvas setCanvas={setCanvas}></Canvas>
+          </div>
 
           <SelectedObjectToolbar />
         </div>
