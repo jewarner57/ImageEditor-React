@@ -5,6 +5,7 @@ import SelectedObjectToolbar from '../SelectedObjectToolbar'
 import Canvas from '../Canvas'
 import VerticalToolbar from '../VerticalToolbar'
 import DownloadAsImage from '../DownloadAsImage'
+import CanvasDetails from '../CanvasDetails'
 
 import { useState } from 'react'
 import { createStore } from 'redux'
@@ -18,6 +19,11 @@ const store = createStore(rootReducer)
 function App() {
   const [canvas, setCanvas] = useState('')
 
+  const [canvasWidth, setCanvasWidth] = useState(800)
+  const [canvasHeight, setCanvasHeight] = useState(600)
+  const [mouseX, setMouseX] = useState(0)
+  const [mouseY, setMouseY] = useState(0)
+
   return (
     <div className="App">
       <Provider store={store}>
@@ -25,8 +31,30 @@ function App() {
           <VerticalToolbar
             contents={[<AddText />, <ImageUpload />, <DownloadAsImage canvas={canvas} />, <ClearCanvas />]}
           />
-          <div className="canvasContainer">
-            <Canvas setCanvas={setCanvas}></Canvas>
+          <div className="CanvasContainer">
+            <div className="canvasWrapper">
+              <Canvas
+                setCanvas={setCanvas}
+                canvasWidth={canvasWidth}
+                canvasHeight={canvasHeight}
+                setCanvasWidth={setCanvasWidth}
+                setCanvasHeight={setCanvasHeight}
+                mouseX={mouseX}
+                mouseY={mouseY}
+                setMouseX={setMouseX}
+                setMouseY={setMouseY}
+              >
+              </Canvas>
+            </div>
+
+            <CanvasDetails
+              width={canvasWidth}
+              height={canvasHeight}
+              setWidth={setCanvasWidth}
+              setHeight={setCanvasHeight}
+              mouseX={mouseX}
+              mouseY={mouseY}
+            />
           </div>
 
           <SelectedObjectToolbar />

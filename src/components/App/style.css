@@ -12,15 +12,25 @@
   justify-content: center;
 }
 
-.canvasContainer {
+.canvasWrapper {
   max-width: 50vw;
   max-height: 80vh;
   overflow: scroll;
 }
 
+.CanvasContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+::-webkit-scrollbar-corner {
+  -webkit-appearance: none;
+}
+
 ::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 7px;
+    height: 7px;
 }
 ::-webkit-scrollbar-thumb {
     border-radius: 4px;
