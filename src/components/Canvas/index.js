@@ -65,7 +65,7 @@ const Canvas = (props) => {
         // If a crop has finished then update the image in state
         if (obj.type === 'handle' && obj.parentID === selectedObjectID) {
           dispatch(updateObject(selectObject))
-          updateImageHandles(obj)
+          updateImageCropHandles(obj)
         }
       }
     })
@@ -90,7 +90,7 @@ const Canvas = (props) => {
         // If crop handle is being dragged
         // Update the image
         if (obj.type === 'handle' && obj.parentID === selectedObjectID) {
-          updateImageHandles(obj)
+          updateImageCropHandles(obj)
         }
       }
     })
@@ -126,7 +126,7 @@ const Canvas = (props) => {
     return clickedObj ? clickedObj : undefined
   }
 
-  const updateImageHandles = (handle) => {
+  const updateImageCropHandles = (handle) => {
 
     if (handle.handleLocation === 'top') {
       const topHandleX = handle.xPos
@@ -145,19 +145,22 @@ const Canvas = (props) => {
 
       selectObject.sx -= cropXDifference
       selectObject.sy -= cropYDifference
+
+      selectObject.sWidth += cropXDifference
+      selectObject.sHeight += cropYDifference
     }
     else if (handle.handleLocation === 'bottom') {
       const bottomHandleX = handle.xPos
       const bottomHandleY = handle.yPos
 
-      const cropXDifference = -(selectObject.xPos - bottomHandleX) - selectObject.width
-      const cropYDifference = -(selectObject.yPos - bottomHandleY) - selectObject.height
+      const cropXDifference = -(selectObject.xPos - bottomHandleX) - selectObject.width + handle.width
+      const cropYDifference = -(selectObject.yPos - bottomHandleY) - selectObject.height + handle.height
 
       // Adjust the size based on where the handle is
       selectObject.width += cropXDifference
       selectObject.height += cropYDifference
 
-      selectObject.sWdith += cropXDifference
+      selectObject.sWidth += cropXDifference
       selectObject.sHeight += cropYDifference
 
     }

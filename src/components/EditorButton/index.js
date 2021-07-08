@@ -1,11 +1,11 @@
 import './style.css'
 
 function EditorButton(props) {
-  const { clickAction, icon, tooltip } = props
+  const { clickAction, icon, tooltip, addonClass } = props
 
   return (
     <div
-      className="editorButton" onClick={(e) => clickAction(e)}
+      className={`editorButton ${addonClass}`} onClick={(e) => clickAction(e)}
       title={tooltip}>
       {icon}
     </div>

@@ -19,3 +19,8 @@
 .editorButton:active {
   background-color: rgb(206, 223, 255);
 }
+
+.active {
+  background-color: rgb(206, 223, 255);
+  box-shadow: 1px 1px 6px rgb(129, 129, 129);
+}
