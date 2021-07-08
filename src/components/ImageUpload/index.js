@@ -10,10 +10,11 @@ function ImageUpload(props) {
   const [inputElement, setInputElement] = useState();
 
   const handleChange = (event) => {
+    const id = uuidv4()
 
     const img = new Image()
     img.src = URL.createObjectURL(event.target.files[0])
-    const id = uuidv4()
+
 
     img.onload = () => {
       const imgObj = {

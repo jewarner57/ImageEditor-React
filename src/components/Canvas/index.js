@@ -1,6 +1,6 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { updateObject, setSelectedObject, removeFromCanvas } from '../../actions';
+import { updateObject, setSelectedObject } from '../../actions';
 import './style.css'
 
 const Canvas = (props) => {
@@ -62,8 +62,10 @@ const Canvas = (props) => {
         // Update object position once drag is finished
         dispatch(updateObject(updatedObj))
 
+        // If a crop has finished then update the image in state
         if (obj.type === 'handle' && obj.parentID === selectedObjectID) {
-          updateImageCrop(obj)
+          dispatch(updateObject(selectObject))
+          updateImageHandles(obj)
         }
       }
     })
@@ -84,6 +86,12 @@ const Canvas = (props) => {
         // always being dragged from top left corner
         updatedObj.xPos = mousePos.x + updatedObj.dragStartX
         updatedObj.yPos = mousePos.y + updatedObj.dragStartY
+
+        // If crop handle is being dragged
+        // Update the image
+        if (obj.type === 'handle' && obj.parentID === selectedObjectID) {
+          updateImageHandles(obj)
+        }
       }
     })
   }
@@ -118,34 +126,41 @@ const Canvas = (props) => {
     return clickedObj ? clickedObj : undefined
   }
 
-  const updateImageCrop = (handle) => {
+  const updateImageHandles = (handle) => {
+
     if (handle.handleLocation === 'top') {
       const topHandleX = handle.xPos
       const topHandleY = handle.yPos
 
-      console.log(selectObject.xPos)
-      console.log(selectObject.width)
+      const cropXDifference = (selectObject.xPos - topHandleX)
+      const cropYDifference = (selectObject.yPos - topHandleY)
 
-      selectObject.sx = -(selectObject.xPos - topHandleX)
-      selectObject.sy = -(selectObject.yPos - topHandleY)
+      // Move the image to where the handle is
+      selectObject.xPos -= cropXDifference
+      selectObject.yPos -= cropYDifference
 
-      selectObject.width -= selectObject.sx
-      selectObject.height -= selectObject.sy
+      // Adjust the size based on where the handle is
+      selectObject.width += cropXDifference
+      selectObject.height += cropYDifference
 
-      selectObject.xPos += selectObject.sx
-      selectObject.yPos += selectObject.sy
-
+      selectObject.sx -= cropXDifference
+      selectObject.sy -= cropYDifference
     }
     else if (handle.handleLocation === 'bottom') {
       const bottomHandleX = handle.xPos
       const bottomHandleY = handle.yPos
 
-      selectObject.sWidth = selectObject.xPos - bottomHandleX
-      selectObject.sHeight = selectObject.yPos - bottomHandleY
+      const cropXDifference = -(selectObject.xPos - bottomHandleX) - selectObject.width
+      const cropYDifference = -(selectObject.yPos - bottomHandleY) - selectObject.height
+
+      // Adjust the size based on where the handle is
+      selectObject.width += cropXDifference
+      selectObject.height += cropYDifference
+
+      selectObject.sWdith += cropXDifference
+      selectObject.sHeight += cropYDifference
 
     }
-
-    dispatch(updateObject(selectObject))
   }
 
   useEffect(() => {
