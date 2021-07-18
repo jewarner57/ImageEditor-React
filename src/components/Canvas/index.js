@@ -128,7 +128,10 @@ const Canvas = (props) => {
 
   const updateImageCropHandles = (handle) => {
 
+    console.log(selectObject)
+
     if (handle.handleLocation === 'top') {
+
       const topHandleX = handle.xPos
       const topHandleY = handle.yPos
 
@@ -148,6 +151,8 @@ const Canvas = (props) => {
 
       selectObject.sWidth += cropXDifference
       selectObject.sHeight += cropYDifference
+
+
     }
     else if (handle.handleLocation === 'bottom') {
       const bottomHandleX = handle.xPos
@@ -217,7 +222,7 @@ const Canvas = (props) => {
         // If the object is selected, draw rect around it
         if (selectedObjectID === obj.id) {
           ctx.lineWidth = 2;
-          ctx.strokeStyle = 'rgb(0, 100, 250)';
+          ctx.strokeStyle = obj.isBeingCropped ? 'rgb(233, 177, 52)' : 'rgb(0, 100, 250)';
           ctx.strokeRect(obj.xPos, obj.yPos, obj.width, obj.height)
         }
       })

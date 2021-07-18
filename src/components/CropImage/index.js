@@ -27,8 +27,7 @@ function CropImage(props) {
       parentID: selectedItem.id,
       dragStartX: 0,
       dragStartY: 0,
-      color: '#000000',
-      parent: selectedItem.id
+      color: '#ebb134'
     }))
 
     return id
