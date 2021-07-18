@@ -128,8 +128,6 @@ const Canvas = (props) => {
 
   const updateImageCropHandles = (handle) => {
 
-    console.log(selectObject)
-
     if (handle.handleLocation === 'top') {
 
       const topHandleX = handle.xPos
@@ -152,7 +150,6 @@ const Canvas = (props) => {
       selectObject.sWidth += cropXDifference
       selectObject.sHeight += cropYDifference
 
-
     }
     else if (handle.handleLocation === 'bottom') {
       const bottomHandleX = handle.xPos
@@ -172,7 +169,6 @@ const Canvas = (props) => {
   }
 
   useEffect(() => {
-
     const canvas = canvasRef.current
     setCanvas(canvas)
     canvas.width = canvasWidth
@@ -207,19 +203,20 @@ const Canvas = (props) => {
             ctx.drawImage(images[obj.id], obj.sx, obj.sy, obj.sWidth, obj.sHeight, obj.xPos, obj.yPos, obj.width, obj.height)
           }
         }
-        // If the object is text
+        // If the object is text draw the text
         else if (obj.type === 'text') {
           ctx.textBaseline = 'top';
           ctx.fillStyle = obj.color
           ctx.font = `${obj.fontSize} ${obj.font}`;
           ctx.fillText(obj.text, obj.xPos, obj.yPos);
         }
+        // If the object is a handle draw the handle
         else if (obj.type === 'handle') {
           ctx.fillStyle = obj.color;
           ctx.fillRect(obj.xPos, obj.yPos, obj.width, obj.height)
         }
 
-        // If the object is selected, draw rect around it
+        // If the object is selected, draw blue selected rect around it
         if (selectedObjectID === obj.id) {
           ctx.lineWidth = 2;
           ctx.strokeStyle = obj.isBeingCropped ? 'rgb(233, 177, 52)' : 'rgb(0, 100, 250)';

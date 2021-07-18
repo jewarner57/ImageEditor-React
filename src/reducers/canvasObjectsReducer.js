@@ -29,12 +29,28 @@ const canvasObjectsReducer = (state = [], action) => {
 
       return state.filter((canvasObject) => {
         if (canvasObject.id === objToRemove.id) {
+
+          // Delete all objectURLs to free up memory 
+          // from deleted images
+          if (canvasObject.type === 'image') {
+            URL.revokeObjectURL(canvasObject.url)
+          }
+
           return false
         }
         return true
       })
 
     case CLEAR_OBJECTS:
+
+      // Delete all objectURLs to free up memory
+      // from deleted images
+      state.forEach((canvasObject) => {
+        if (canvasObject.type === 'image') {
+          URL.revokeObjectURL(canvasObject.url)
+        }
+      })
+
 
       return []
 

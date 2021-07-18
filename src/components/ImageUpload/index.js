@@ -13,7 +13,10 @@ function ImageUpload(props) {
     const id = uuidv4()
 
     const img = new Image()
-    img.src = URL.createObjectURL(event.target.files[0])
+
+    const imageFile = new File([event.target.files[0]], `${id}.png`, { type: event.target.files[0].type });
+    img.src = URL.createObjectURL(imageFile)
+    console.log(img)
 
 
     img.onload = () => {
@@ -38,6 +41,7 @@ function ImageUpload(props) {
 
       dispatch(addToCanvas(imgObj))
       dispatch(setSelectedObject(imgObj))
+      event.target.value = null
     }
 
   }
