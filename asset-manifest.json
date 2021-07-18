@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/ImageEditor-React/static/css/main.8137e2d4.chunk.css",
-    "main.js": "/ImageEditor-React/static/js/main.df1d62b0.chunk.js",
-    "main.js.map": "/ImageEditor-React/static/js/main.df1d62b0.chunk.js.map",
+    "main.js": "/ImageEditor-React/static/js/main.30be744b.chunk.js",
+    "main.js.map": "/ImageEditor-React/static/js/main.30be744b.chunk.js.map",
     "runtime-main.js": "/ImageEditor-React/static/js/runtime-main.4753f530.js",
     "runtime-main.js.map": "/ImageEditor-React/static/js/runtime-main.4753f530.js.map",
     "static/js/2.aa58ee18.chunk.js": "/ImageEditor-React/static/js/2.aa58ee18.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.4753f530.js",
     "static/js/2.aa58ee18.chunk.js",
     "static/css/main.8137e2d4.chunk.css",
-    "static/js/main.df1d62b0.chunk.js"
+    "static/js/main.30be744b.chunk.js"
   ]
 }
