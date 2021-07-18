@@ -51,7 +51,7 @@ function ChangeImageSettings(props) {
                     initialVal={selectedItem.height}
                     changeAction={
                       (e) => {
-                        selectedItem.height = Number(e.target.value).toFixed(2)
+                        selectedItem.height = Math.round(Number(e.target.value))
 
                         dispatch(updateObject(selectedItem))
                       }
