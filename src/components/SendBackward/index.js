@@ -14,7 +14,7 @@ function SendBackward(props) {
             selectedItem.zIndex -= 1
             dispatch(updateObject(selectedItem))
           }}
-        icon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 21l-12-18h24z" /></svg>}
+        icon={<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 21l-12-18h24z" /></svg>}
         tooltip={`Send Backward`}
       />
     </div>

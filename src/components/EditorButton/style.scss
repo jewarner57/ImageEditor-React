@@ -1,8 +1,10 @@
+@import '../../theme';
+
 .editorButton {
   text-align: center;
   padding: 20px;
   margin: 10px;
-  background-color: rgb(255, 255, 255);
+  background-color: $backgroundColor;
   border-radius: 10px;
   width: 30px;
   height: 30px;
@@ -10,17 +12,21 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  svg {
+    color: $foregroundColor;
+  }
 }
 
 .editorButton:hover {
-  box-shadow: 1px 1px 6px rgb(129, 129, 129);
+  box-shadow: 1px 1px 6px $shadowColor;
 }
 
 .editorButton:active {
-  background-color: rgb(206, 223, 255);
+  background-color: $activeBackgroundColor;
 }
 
 .active {
-  background-color: rgb(206, 223, 255);
-  box-shadow: 1px 1px 6px rgb(129, 129, 129);
+  background-color: $activeBackgroundColor;
+  box-shadow: 1px 1px 6px $shadowColor;
 }

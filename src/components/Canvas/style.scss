@@ -1,4 +1,6 @@
+@import '../../theme';
+
 canvas {
-  background-color: white;
+  background-color: $backgroundColor;
   margin: 0 5px;
 }
