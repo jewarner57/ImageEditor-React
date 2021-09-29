@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './style.css'
+import './style.scss'
 
 function SettingInput(props) {
   const { label, changeAction, initialVal } = props

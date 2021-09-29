@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 import { clearCanvas } from '../../actions';
 
-import './style.css'
+import './style.scss'
 
 function ClearCanvas(props) {
   const dispatch = useDispatch()

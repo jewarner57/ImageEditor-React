@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './style.css'
+import './style.scss'
 
 function CanvasDetails(props) {
   const { width, height, setWidth, setHeight, mouseX, mouseY } = props

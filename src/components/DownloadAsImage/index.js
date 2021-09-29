@@ -1,4 +1,4 @@
-import './style.css'
+import './style.scss'
 import EditorButton from '../EditorButton'
 import SettingsModal from '../SettingsModal'
 import SettingInput from '../SettingInput'

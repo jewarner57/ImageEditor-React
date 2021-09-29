@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { updateObject, addToCanvas, removeFromCanvas } from '../../actions';
 import { v4 as uuidv4 } from 'uuid';
 
-import './style.css'
+import './style.scss'
 
 function CropImage(props) {
   const selectedItem = useSelector(state => state.selectedObject)

@@ -7,7 +7,7 @@ import ChangeImageSettings from '../ChangeImageSettings'
 import Deselect from '../Deselect'
 import CropImage from '../CropImage'
 import { useSelector } from 'react-redux'
-import './style.css'
+import './style.scss'
 
 function SelectedObjectToolbar(props) {
 

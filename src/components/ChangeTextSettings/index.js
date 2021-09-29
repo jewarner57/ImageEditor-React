@@ -4,7 +4,7 @@ import SettingInput from '../SettingInput'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateObject } from '../../actions';
-import './style.css'
+import './style.scss'
 
 function ChangeTextSettings(props) {
   const selectedItem = useSelector(state => state.selectedObject)

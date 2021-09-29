@@ -1,4 +1,4 @@
-import './style.css'
+import './style.scss'
 import EditorButton from '../EditorButton'
 import { useDispatch } from 'react-redux'
 import { addToCanvas, setSelectedObject } from '../../actions';

@@ -4,7 +4,7 @@ import SettingInput from '../SettingInput'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSelectedObject, updateObject } from '../../actions';
-import './style.css'
+import './style.scss'
 
 function ChangeImageSettings(props) {
   const selectedItem = useSelector(state => state.selectedObject)

@@ -1,4 +1,4 @@
-import './style.css'
+import './style.scss'
 
 function SettingsModal(props) {
   const { contents, exitAction, header } = props

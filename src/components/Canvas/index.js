@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateObject, setSelectedObject } from '../../actions';
-import './style.css'
+import './style.scss'
 
 const Canvas = (props) => {
 
