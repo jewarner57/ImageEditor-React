@@ -1,6 +1,6 @@
 import EditorButton from '../EditorButton'
 import { useDispatch, useSelector } from 'react-redux'
-import { removeFromCanvas, setSelectedObject } from '../../actions';
+import { removeFromCanvas, setSelectedObject, updateObject } from '../../actions';
 
 function DeleteItem(props) {
   const selectedItem = useSelector(state => state.selectedObject)

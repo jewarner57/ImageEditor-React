@@ -5,7 +5,6 @@ const canvasObjectsReducer = (state = [], action) => {
 
   switch (action.type) {
     case ADD_OBJECT:
-
       const obj = action.payload.obj
       // Layer the new object on top
       obj.zIndex = state.length
@@ -13,7 +12,6 @@ const canvasObjectsReducer = (state = [], action) => {
       return [obj, ...state]
 
     case UPDATE_OBJECT:
-      console.log(action.payload.obj)
       const objForUpdate = action.payload.obj
 
       return state.map((obj) => {
@@ -28,10 +26,10 @@ const canvasObjectsReducer = (state = [], action) => {
       const objToRemove = action.payload.obj
 
       return state.filter((canvasObject) => {
-        if (canvasObject.id === objToRemove.id) {
-
+        if (canvasObject.id === objToRemove.id || canvasObject.parentID === objToRemove.id) {
           // Delete all objectURLs to free up memory 
           // from deleted images
+
           if (canvasObject.type === 'image') {
             URL.revokeObjectURL(canvasObject.url)
           }
