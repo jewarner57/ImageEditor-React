@@ -144,11 +144,11 @@ const Canvas = (props) => {
       selectObject.width += cropXDifference
       selectObject.height += cropYDifference
 
-      selectObject.sx -= cropXDifference
-      selectObject.sy -= cropYDifference
+      selectObject.sx -= cropXDifference * selectObject.resizeXScale
+      selectObject.sy -= cropYDifference * selectObject.resizeXScale
 
-      selectObject.sWidth += cropXDifference
-      selectObject.sHeight += cropYDifference
+      selectObject.sWidth += cropXDifference * selectObject.resizeXScale
+      selectObject.sHeight += cropYDifference * selectObject.resizeYScale
 
     }
     else if (handle.handleLocation === 'bottom') {
@@ -158,13 +158,15 @@ const Canvas = (props) => {
       const cropXDifference = -(selectObject.xPos - bottomHandleX) - selectObject.width + handle.width
       const cropYDifference = -(selectObject.yPos - bottomHandleY) - selectObject.height + handle.height
 
+      const cropXSizeDifference = -(selectObject.xPos - bottomHandleX) - selectObject.width + handle.width
+      const cropYSizeDifference = -(selectObject.yPos - bottomHandleY) - selectObject.height + handle.height
+
+      selectObject.sWidth += cropXSizeDifference * selectObject.resizeXScale
+      selectObject.sHeight += cropYSizeDifference * selectObject.resizeYScale
+
       // Adjust the size based on where the handle is
       selectObject.width += cropXDifference
       selectObject.height += cropYDifference
-
-      selectObject.sWidth += cropXDifference
-      selectObject.sHeight += cropYDifference
-
     }
   }
 

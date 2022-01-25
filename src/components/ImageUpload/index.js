@@ -16,12 +16,14 @@ function ImageUpload(props) {
 
     const imageFile = new File([event.target.files[0]], `${id}.png`, { type: event.target.files[0].type });
     img.src = URL.createObjectURL(imageFile)
-    console.log(img)
-
 
     img.onload = () => {
       const imgObj = {
         type: 'image',
+        startWidth: img.width,
+        startHeight: img.height,
+        resizeXScale: 1,
+        resizeYScale: 1,
         id: id,
         url: img.src,
         xPos: 0,

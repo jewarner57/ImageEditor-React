@@ -51,7 +51,6 @@ const canvasObjectsReducer = (state = [], action) => {
         }
       })
 
-
       return []
 
     default:
